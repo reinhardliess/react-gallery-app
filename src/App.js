@@ -31,7 +31,6 @@ export default class App extends Component {
   componentDidMount() {
 
     // preload all data for the three default tags, fetch data from flickr using axios
-
     this.state.defaultTags.forEach(element => {
       axios.get('https://www.flickr.com/services/rest/', {
         params: this.buildQuery(element)
@@ -109,7 +108,11 @@ export default class App extends Component {
               render={() =>
                 <Fragment>
                   <Header onSearch={this.performSearch} />
-                  <Gallery images={this.state.lakes} />
+                  <Gallery
+                    images={this.state.lakes}
+                    title="Lakes"
+                    isLoading={this.state.isLoading}
+                  />
                 </Fragment>
               }
             />
