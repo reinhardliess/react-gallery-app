@@ -5,8 +5,9 @@ const NotFound = ({ onSearch }) => {
   return (
     <Fragment>
       <Header onSearch={onSearch} />
-      <div>
-        <p>⚠ This page was not found</p>
+      <div className="not-found">
+        <h3>Page Not Found</h3>
+        <p>Please use one of the default buttons or enter a search term</p>
       </div>
     </Fragment>
   )

@@ -7,8 +7,8 @@ Reinhard Liess, 2019
 import './App.css'
 import React, { Component, Fragment } from 'react'
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom'
-import flickrApiKey from './Config'
 import axios from 'axios'
+import flickrApiKey from './Config'
 import { getRandomInt } from './utils'
 
 // Components
@@ -87,7 +87,6 @@ export default class App extends Component {
   performSearch = (query) => {
 
     this.setState({ isLoading: true })
-    // axios query here
     axios.get('https://www.flickr.com/services/rest/', {
       params: this.buildQuery(query)
     })

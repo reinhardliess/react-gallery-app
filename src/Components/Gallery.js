@@ -3,8 +3,6 @@ import GalleryItem from './GalleryItem';
 import NoResults from './NoResults'
 
 const Gallery = ({ results, title }) => {
-  // const results = props.images
-  // const title = props.title
 
   if (!results.photo) {
     return null
@@ -32,4 +30,4 @@ const Gallery = ({ results, title }) => {
   )
 }
 
-export default Gallery;
+export default Gallery
