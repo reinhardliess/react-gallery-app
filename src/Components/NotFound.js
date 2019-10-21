@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+import Header from './Header'
 
-const NotFound = () => {
+const NotFound = ({ onSearch }) => {
   return (
-    <div>
-      <p>This page was not found. Go Back</p>
-    </div>
+    <Fragment>
+      <Header onSearch={onSearch} />
+      <div>
+        <p>⚠ This page was not found</p>
+      </div>
+    </Fragment>
   )
 }
 
