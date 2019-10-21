@@ -1,23 +1,30 @@
 import React from 'react';
 import GalleryItem from './GalleryItem';
+import NoResults from './NoResults'
 
+const Gallery = ({ results, title }) => {
+  // const results = props.images
+  // const title = props.title
 
+  if (!results.photo) {
+    return null
+  }
 
-const Gallery = props => {
-  const results = props.images
-  const title = props.title
   let images
-
-  images = results.map(image => (
-    <GalleryItem
-      url={}
-      title={}
-      key={}
-    />
-  ))
+  if (results.photo.length > 0) {
+    images = results.photo.map(image => (
+      <GalleryItem
+        url={`https://farm${image.farm}.staticflickr.com/${image.server}/${image.id}_${image.secret}_m.jpg`}
+        title={image.title || 'No Description'}
+        key={image.id}
+      />
+    ))
+  } else {
+    images = <NoResults title={title} />
+  }
   return (
-    <div class="photo-container">
-      <h2>{heading}</h2>
+    <div className="photo-container">
+      <h2>{title}</h2>
       <ul>
         {images}
       </ul>

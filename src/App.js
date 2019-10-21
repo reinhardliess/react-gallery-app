@@ -4,9 +4,9 @@ FSJS project 7 - A React Gallery App
 Reinhard Liess, 2019
 ******************************************/
 
-import React, { Component, Fragment } from 'react'
 import './App.css'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import React, { Component, Fragment } from 'react'
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom'
 import flickrApiKey from './Config'
 import axios from 'axios'
 import { getRandomInt } from './utils'
@@ -15,34 +15,45 @@ import { getRandomInt } from './utils'
 import Gallery from './Components/Gallery'
 import Header from './Components/Header'
 import NotFound from './Components/NotFound'
+import Error from './Components/Error'
+import Loading from './Components/Loading'
+
+const DEFAULT_TAGS = ['Lakes', 'Mountains', 'Trees']
 
 export default class App extends Component {
 
   state = {
-    defaultTags: ['Lakes', 'Mountains', 'Trees'],
     lakes: [],
     mountains: [],
     trees: [],
     search: [],
     isLoading: false,
-    isError: false
+    error: null,
   }
 
   componentDidMount() {
 
+    // perform search if the user inputs a search url
+    const searchQuery = window.location.pathname.match(/\/search\/(.+)$/)
+    if (searchQuery) {
+      this.performSearch(decodeURIComponent(searchQuery[1]))
+    }
+
     // preload all data for the three default tags, fetch data from flickr using axios
-    this.state.defaultTags.forEach(element => {
+    this.setState({ isLoading: true })
+    DEFAULT_TAGS.forEach(element => {
       axios.get('https://www.flickr.com/services/rest/', {
         params: this.buildQuery(element)
       })
         .then(responseData => {
-          console.log({ element }, responseData);
           this.setState({
-            [element.toLowerCase()]: responseData.data.photos.photo
+            [element.toLowerCase()]: responseData.data.photos,
+            isLoading: false
           })
         })
         .catch(error => {
-          console.log(error);
+          console.error(error);
+          this.setState({ error, isLoading: false })
         })
     })
 
@@ -51,7 +62,7 @@ export default class App extends Component {
   /**
    * Builds api options for axios
    * @param {string} query
-   * @returns {object} api options
+   * @returns {object} api-options
    */
   buildQuery = (query) => {
 
@@ -72,63 +83,98 @@ export default class App extends Component {
   /**
    * accesses flickr API to perform search
    * @param {string} query
-   * @param {boolean} isTagSearch
    */
   performSearch = (query) => {
 
+    this.setState({ isLoading: true })
     // axios query here
     axios.get('https://www.flickr.com/services/rest/', {
       params: this.buildQuery(query)
     })
       .then(responseData => {
         this.setState({
-          search: responseData.data.photos.photo
+          search: responseData.data.photos,
+          isLoading: false
         })
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
+        this.setState({ error, isLoading: false })
       })
-
-    // handle loading and error states
   }
 
   render() {
 
+    const { error, isLoading } = this.state
+
+    let statusComponent = null
+    if (error) {
+      statusComponent = <Error error={error} />
+    } else if (isLoading) {
+      statusComponent = <Loading />
+    }
 
     return (
       <BrowserRouter>
         <div className="container">
           <Switch>
-            {/* <Route exact
+            <Route exact
               path="/"
               render={() => <Redirect
-                to={`/${this.state.defaultTags[getRandomInt(0, this.state.defaultTags.length - 1)]}`} />}
-            /> */}
+                to={`/${DEFAULT_TAGS[getRandomInt(0, DEFAULT_TAGS.length - 1)]}`} />}
+            />
             <Route path="/lakes"
               render={() =>
                 <Fragment>
                   <Header onSearch={this.performSearch} />
                   <Gallery
-                    images={this.state.lakes}
+                    results={this.state.lakes}
                     title="Lakes"
-                    isLoading={this.state.isLoading}
                   />
                 </Fragment>
               }
             />
 
-            {/* more attributes: images and componentToRender */}
-            {/* <Route
+            <Route path="/mountains"
+              render={() =>
+                <Fragment>
+                  <Header onSearch={this.performSearch} />
+                  <Gallery
+                    results={this.state.mountains}
+                    title="Mountains"
+                  />
+                </Fragment>
+              }
+            />
+
+            <Route path="/trees"
+              render={() =>
+                <Fragment>
+                  <Header onSearch={this.performSearch} />
+                  <Gallery
+                    results={this.state.trees}
+                    title="Trees"
+                  />
+                </Fragment>
+              }
+            />
+
+            <Route
               path="/search/:query"
               render={({ match }) =>
-                <Search
-                  search={this.performSearch}
-                  query={match.params.query}
+                <Fragment>
+                  <Header onSearch={this.performSearch} />
+                  <Gallery
+                    results={this.state.search}
+                    title={match.params.query}
+                  />
+                </Fragment>
 
-                />}
-            /> */}
+              }
+            />
             <Route component={NotFound} />
           </Switch>
+          {statusComponent}
         </div>
       </BrowserRouter>
     )
