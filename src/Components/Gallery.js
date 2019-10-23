@@ -1,7 +1,8 @@
 import React from 'react';
-import GalleryItem from './GalleryItem';
+import GalleryItem from './GalleryItem'
 import NoResults from './NoResults'
 
+/** Gallery container component */
 const Gallery = ({ results, title }) => {
 
   if (!results.photo) {

@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 
+/** displays and manages search component */
 class SearchForm extends Component {
 
   /**
-   * @param {object} event object
+   * @param {object} event - event object
    */
   handleSubmit = event => {
     event.preventDefault()

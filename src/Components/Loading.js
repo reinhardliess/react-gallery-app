@@ -1,7 +1,6 @@
 import React from 'react'
 
-// flickr spinner from https://loading.io (CC0 license)
-
+/** displays flickr spinner from https://loading.io (CC0 license)  */
 const Loading = () => {
   return (
     <div className="flickr-spinner">

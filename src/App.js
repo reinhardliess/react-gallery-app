@@ -18,8 +18,22 @@ import NotFound from './Components/NotFound'
 import Error from './Components/Error'
 import Loading from './Components/Loading'
 
-const DEFAULT_TAGS = ['Lakes', 'Mountains', 'Trees']
+const defaultTags = [
+  {
+    name: 'Lakes',
+    isLoading: true
+  },
+  {
+    name: 'Mountains',
+    isLoading: true
+  },
+  {
+    name: 'Trees',
+    isLoading: true
+  }
+]
 
+/** The component handling the app */
 export default class App extends Component {
 
   state = {
@@ -34,22 +48,25 @@ export default class App extends Component {
   componentDidMount() {
 
     // perform search if the user inputs a search url
-    const searchQuery = window.location.pathname.match(/\/search\/(.+)$/)
+    const searchQuery = window.location.pathname.match(/^\/search\/(.+)$/)
     if (searchQuery) {
       this.performSearch(decodeURIComponent(searchQuery[1]))
     }
 
     // preload all data for the three default tags, fetch data from flickr using axios
     this.setState({ isLoading: true })
-    DEFAULT_TAGS.forEach(element => {
+    defaultTags.forEach(element => {
       axios.get('https://www.flickr.com/services/rest/', {
-        params: this.buildQuery(element)
+        params: this.buildQuery(element.name)
       })
         .then(responseData => {
           this.setState({
-            [element.toLowerCase()]: responseData.data.photos,
-            isLoading: false
+            [element.name.toLowerCase()]: responseData.data.photos,
           })
+          element.isLoading = false
+          if (defaultTags.every(tag => !tag.isLoading)) {
+            this.setState({ isLoading: false })
+          }
         })
         .catch(error => {
           console.error(error);
@@ -61,8 +78,8 @@ export default class App extends Component {
 
   /**
    * Builds api options for axios
-   * @param {string} query
-   * @returns {object} api-options
+   * @param {string} query - photos to search for
+   * @returns {object} options - flickr api object for axios
    */
   buildQuery = (query) => {
 
@@ -104,7 +121,7 @@ export default class App extends Component {
 
   render() {
 
-    const { error, isLoading } = this.state
+    const { error, isLoading, lakes, mountains, trees, search } = this.state
 
     let statusComponent = null
     if (error) {
@@ -120,14 +137,14 @@ export default class App extends Component {
             <Route exact
               path="/"
               render={() => <Redirect
-                to={`/${DEFAULT_TAGS[getRandomInt(0, DEFAULT_TAGS.length - 1)]}`} />}
+                to={`/${defaultTags[getRandomInt(0, defaultTags.length - 1)].name}`} />}
             />
             <Route path="/lakes"
               render={() =>
                 <Fragment>
                   <Header onSearch={this.performSearch} />
                   <Gallery
-                    results={this.state.lakes}
+                    results={lakes}
                     title="Lakes"
                   />
                 </Fragment>
@@ -139,7 +156,7 @@ export default class App extends Component {
                 <Fragment>
                   <Header onSearch={this.performSearch} />
                   <Gallery
-                    results={this.state.mountains}
+                    results={mountains}
                     title="Mountains"
                   />
                 </Fragment>
@@ -151,7 +168,7 @@ export default class App extends Component {
                 <Fragment>
                   <Header onSearch={this.performSearch} />
                   <Gallery
-                    results={this.state.trees}
+                    results={trees}
                     title="Trees"
                   />
                 </Fragment>
@@ -164,7 +181,7 @@ export default class App extends Component {
                 <Fragment>
                   <Header onSearch={this.performSearch} />
                   <Gallery
-                    results={this.state.search}
+                    results={search}
                     title={match.params.query}
                   />
                 </Fragment>

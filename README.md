@@ -1,4 +1,47 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# JavaScript Techdegree Project #7: React Gallery App
+
+A live version of this project can be found [here](). Please note that the app is in hibernation mode and may take a couple of seconds to load.
+
+## Installation
+
+* This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+* Download or clone from Github
+* config.js, api key src/config.js
+* run `npm install`
+* run `npm start` to start the development server. The website can then be accessed locally by pointing the web browser to `localhost:3000`
+
+## Basic Project requirements
+
+
+
+
+## Exceeds Grade Project Requirements
+
+
+
+## Some Additional remarks
+
+* Transition hover effects added to all buttons using Flickr brand colors
+* 
+
+### Error Handling
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Available Scripts
 

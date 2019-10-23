@@ -1,5 +1,6 @@
 import React from 'react'
 
+/** displays message if a search didn't return any results */
 const NoResults = () => {
   return (
     <li className="not-found">

@@ -1,5 +1,6 @@
 import React from 'react'
 
+/** Error component */
 const Error = ({ error }) => {
   return (
     <div className="not-found">

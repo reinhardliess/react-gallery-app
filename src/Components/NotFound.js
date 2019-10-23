@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import Header from './Header'
 
+/** displays 404/not found message */
 const NotFound = ({ onSearch }) => {
   return (
     <Fragment>

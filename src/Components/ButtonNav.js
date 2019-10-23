@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
+/** component for button navigation => default tags */
 const ButtonNav = () => {
   return (
     <nav className="main-nav">
