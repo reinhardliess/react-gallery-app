@@ -1,3 +1,10 @@
+:root {
+  --flickr-blue: #0063dc;
+  --flickr-blue-hover: rgb(2, 69, 150);
+  --flickr-pink: #ff0084;
+  --flickr-pink-hover: #d60872;
+}
+
 body {
   text-align: center;
   font-family: 'Open Sans', sans-serif;
@@ -27,7 +34,7 @@ a {
 
 .search-form button {
   outline: none;
-  background-color: rgb(255, 0, 132);
+  background-color: var(--flickr-pink);
   border: none;
   padding: 0px 15px;
   border-radius: 0 0.35em 0.35em 0;
@@ -52,16 +59,20 @@ input {
 
 .main-nav a {
   display: block;
-  background: rgb(0, 99, 220);
+  background: var(--flickr-blue);
   border-radius: 3px;
   padding: 5px;
   color: #fff;
 }
 
-.main-nav .active,
-.main-nav a:hover,
 .search-form button:hover {
-  background-color: #275270;
+  background-color: var(--flickr-pink-hover);
+}
+
+.main-nav .active,
+.main-nav a:hover
+{
+  background-color: var(--flickr-blue-hover);
 }
 
 .photo-container ul {
