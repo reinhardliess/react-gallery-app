@@ -35,6 +35,7 @@ a {
 .search-form button {
   outline: none;
   background-color: var(--flickr-pink);
+  transition: background-color 0.5s;
   border: none;
   padding: 0px 15px;
   border-radius: 0 0.35em 0.35em 0;
@@ -59,7 +60,8 @@ input {
 
 .main-nav a {
   display: block;
-  background: var(--flickr-blue);
+  background-color: var(--flickr-blue);
+  transition: background-color 0.5s;
   border-radius: 3px;
   padding: 5px;
   color: #fff;
