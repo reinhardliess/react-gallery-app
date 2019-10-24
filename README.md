@@ -1,47 +1,39 @@
 # JavaScript Techdegree Project #7: React Gallery App
 
-A live version of this project can be found [here](). Please note that the app is in hibernation mode and may take a couple of seconds to load.
+For this project, I used the popular library React to create an image gallery app that fetches images from flickr using [axios](https://github.com/axios/axios). Routes are set up with React Router for default topics/tags (Lakes, Mountains, Trees) and a search route which enables the user to search for photos of their choice.  
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+A live version of this project can be found [here](https://rliess-react-gallery.netlify.com/).
 
 ## Installation
 
-* This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 * Download or clone from Github
-* config.js, api key src/config.js
+* Copy `Config.js` from `./install` to `./src` and add your flickr API key
 * run `npm install`
 * run `npm start` to start the development server. The website can then be accessed locally by pointing the web browser to `localhost:3000`
 
 ## Basic Project requirements
 
-
-
+* Use JavaScript and JSX to build out the gallery components in a modular fashion.
+* Use React Router to set up routes for three default topic pages and a search page.
+* Use the Fetch API or a tool like Axios to fetch data from the Flickr API and use it to display images in your app.
+* Add logic to handle the search and various requirements of the project.
+* Add to the supplied CSS to personalize the project.
 
 ## Exceeds Grade Project Requirements
 
-
+* Add a loading indicator that displays each time the app fetches new data. Since the data for the three main topic pages can be requested when the page first loads, it's okay if the loading indicator is only present on the search route.
+* If no matches are found by the search, display a friendly user message to tell the user there are no matches.
+* Include a 404-like error route that displays a friendly 404 error page when a URL does not match an existing route.
 
 ## Some Additional remarks
 
-* Transition hover effects added to all buttons using Flickr brand colors
-* 
-
-### Error Handling
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+* Added flickr photo title both as `alt` and `title`(tooltip) attributes
+* Added transition hover effects to all buttons using flickr brand colors
+* Added a 404/not-found route
+* Added a component that displays a friendly message if a search doesn't produce any results
+* Added a flickr spinner from [https://loading.io](https://loading.io) ([CC0 - Creative Commons license](https://creativecommons.org/share-your-work/public-domain/cc0/))
+* Added an error route in case of a fetch or network error
 
 ## Available Scripts
 
