@@ -18,6 +18,7 @@ import NotFound from './Components/NotFound'
 import Error from './Components/Error'
 import Loading from './Components/Loading'
 
+// setup default tags for pre-loading
 const defaultTags = [
   {
     name: 'Lakes',
