@@ -3,6 +3,9 @@
 # config file for flickr api key
 /src/config.js
 
+# netlify config
+.netlify
+
 # created by create-react-app
 
 # dependencies
